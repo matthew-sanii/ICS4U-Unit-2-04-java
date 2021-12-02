@@ -45,7 +45,7 @@ final class TowerOfHanoi {
         else {
             hanoi(nOfDisks - 1, startPeg, pegNumber - startPeg - endPeg);
             System.out.println("Move disk " + nOfDisks + " from peg "
-                + startPeg + pegVal + endPeg + ".");
+                + startPeg + pegVal + endPeg);
             hanoi(nOfDisks - 1, pegNumber - startPeg - endPeg, endPeg);
         }
     }
@@ -62,8 +62,9 @@ final class TowerOfHanoi {
         System.out.println("Tower of Hanoi");
         final Scanner userInput = new Scanner(System.in);
         System.out.print("\nHow many disks do you want?: ");
+        final String usrInput = userInput.nextLine();
         try {
-            final int nOfDisks = userInput.nextInt();
+            final int nOfDisks = Integer.valueOf(usrInput);
             System.out.println();
             if (nOfDisks > 0) {
                 hanoi(nOfDisks, startPeg, endPeg);

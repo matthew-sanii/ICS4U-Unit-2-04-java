@@ -2,60 +2,77 @@
 * This program solves
 * the Tower of Hanoi riddle.
 *
-* @author  Mr Coxall
+* @author  Matthew Sanii
 * @version 1.0
-* @since   2021-05-11
+* @since   2021-12-02
 */
 
+import java.io.IOException;
 import java.util.Scanner;
 
+/**
+* This is the TowerOfHanoi program.
+*/
 final class TowerOfHanoi {
 
-
+    /**
+    * Prevent instantiation
+    * Throw an exception IllegalStateException.
+    * if this ever is called
+    *
+    * @throws IllegalStateException
+    *
+    */
     private TowerOfHanoi() {
-        // Prevent instantiation
-        // Optional: throw an exception e.g. AssertionError
-        // if this ever *is* called
         throw new IllegalStateException("Cannot be instantiated");
     }
 
-
+    /**
+    * Function does the TowerOfHanoi game by itself.
+    *
+    * @param nOfDisks the number of disks
+    * @param startPeg the start peg value
+    * @param endPeg The end peg value
+    */
     static void hanoi(final int nOfDisks, final int startPeg,
                              final int endPeg) {
-        // This function calculates where the disks should be placed in
         final int pegNumber = 6;
+        final String pegVal = " to peg ";
         if (nOfDisks == 1) {
-            System.out.println("Move disk 1 from peg " + startPeg + " to peg "
+            System.out.println("Move disk 1 from peg " + startPeg + pegVal
                                + endPeg);
-        } else {
-            hanoi(nOfDisks - 1, startPeg, 6 - startPeg - endPeg);
-            System.out.println("Move disk " + nOfDisks + " from peg " + startPeg + " to peg " + endPeg + ".");
-            hanoi(nOfDisks - 1, 6 - startPeg - endPeg, endPeg);
         }
-            // assert true is just a place holder for the linter
-            assert true;
+        else {
+            hanoi(nOfDisks - 1, startPeg, pegNumber - startPeg - endPeg);
+            System.out.println("Move disk " + nOfDisks + " from peg "
+                + startPeg + pegVal + endPeg + ".");
+            hanoi(nOfDisks - 1, pegNumber - startPeg - endPeg, endPeg);
+        }
     }
 
+    /**
+    * The starting main() function.
+    *
+    * @param args Name of file containing a string of numbers
+    * @throws IOException when error occurs
+    */
     public static void main(final String[] args) {
         final int startPeg = 1;
         final int endPeg = 3;
-
         System.out.println("Tower of Hanoi");
-
-        // input
-        Scanner userInput = new Scanner(System.in);
+        final Scanner userInput = new Scanner(System.in);
         System.out.print("\nHow many disks do you want?: ");
-
         try {
-            int nOfDisks = userInput.nextInt();
+            final int nOfDisks = userInput.nextInt();
             System.out.println();
             if (nOfDisks > 0) {
-                // process
                 hanoi(nOfDisks, startPeg, endPeg);
-            } else {
+            }
+            else {
                 System.out.println("\nPlease enter a positive integer.");
             }
-        } catch (Exception errorCode) {
+        }
+        catch (NumberFormatException errorCode) {
             System.err.print("\nThis is not an integer.");
         }
     }
